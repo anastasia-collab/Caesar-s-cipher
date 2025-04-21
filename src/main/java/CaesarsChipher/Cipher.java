@@ -3,18 +3,19 @@ package CaesarsChipher;
 public class Cipher {
 
     private static char[] ALPHABET = {'а', 'б', 'в', 'г', 'д', 'е', 'ж', 'з',
-            'и','к', 'л', 'м', 'н', 'о', 'п', 'р', 'с', 'т', 'у', 'ф', 'х', 'ц', 'ч', 'ш', 'щ',
+            'и', 'к', 'л', 'м', 'н', 'о', 'п', 'р', 'с', 'т', 'у', 'ф', 'х', 'ц', 'ч', 'ш', 'щ',
             'ъ', 'ы', 'ь', 'э', 'я', '.', ',', '«', '»', '"', '\'', ':', '!', '?', ' '};
 
     public Cipher(char[] alphabet) {
         this.ALPHABET = alphabet;
     }
-//шифровка
+
+    //шифровка
     public String encrypt(String text, int shift) {
         StringBuilder resultText = new StringBuilder();
-        for (char c : text.toCharArray()){
+        for (char c : text.toCharArray()) {
             int index = findCharIndex(c);
-            if (index == -1){
+            if (index == -1) {
                 resultText.append(c);
             } else {
                 int newIndex = (index + shift) % ALPHABET.length;
@@ -23,14 +24,16 @@ public class Cipher {
         }
         return resultText.toString();
     }
-//ищем индекс символа
+
+    //ищем индекс символа
     private int findCharIndex(char c) {
         for (int i = 0; i < ALPHABET.length; i++) {
-            if(c == ALPHABET[i]) return i;
+            if (c == ALPHABET[i]) return i;
         }
         return -1;
     }
-//расшифровка
+
+    //расшифровка
     public String decrypt(String encryptedText, int shift) {
         return encrypt(encryptedText, -shift);
     }
