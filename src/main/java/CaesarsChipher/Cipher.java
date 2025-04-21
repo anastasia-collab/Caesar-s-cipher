@@ -11,12 +11,29 @@ public class Cipher {
     }
 
     public String encrypt(String text, int shift) {
-
-        return text;
+        StringBuilder resultText = new StringBuilder();
+        for (char c : text.toCharArray()){
+            int index = findCharIndex(c);
+            if (index == -1){
+                resultText.append(c);
+            } else {
+                int newIndex = (index + shift) % ALPHABET.length;
+                resultText.append(newIndex);
+            }
+        }
+        return resultText.toString();
     }
+
+    private int findCharIndex(char c) {
+        for (int i = 0; i < ALPHABET.length; i++) {
+            if(c == ALPHABET[i]) return i;
+        }
+        return -1;
+    }
+
     public String decrypt(String encryptedText, int shift) {
 
-        return encryptedText;
+        return null;
     }
 
 }
