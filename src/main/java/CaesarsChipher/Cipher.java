@@ -9,7 +9,7 @@ public class Cipher {
     public Cipher(char[] alphabet) {
         this.ALPHABET = alphabet;
     }
-
+//шифровка
     public String encrypt(String text, int shift) {
         StringBuilder resultText = new StringBuilder();
         for (char c : text.toCharArray()){
@@ -23,17 +23,16 @@ public class Cipher {
         }
         return resultText.toString();
     }
-
+//ищем индекс символа
     private int findCharIndex(char c) {
         for (int i = 0; i < ALPHABET.length; i++) {
             if(c == ALPHABET[i]) return i;
         }
         return -1;
     }
-
+//расшифровка
     public String decrypt(String encryptedText, int shift) {
-
-        return null;
+        return encrypt(encryptedText, -shift);
     }
 
 }
