@@ -17,7 +17,7 @@ public class Cipher {
     public String encrypt(String text, int shift) throws IOException {
         files.readFile(text);
         StringBuilder result = new StringBuilder();
-        for (char c : text.toCharArray()) {
+        for (char c : files.toString().toCharArray()) {
             int index = findCharIndex(c); // Ищем индекс символа в алфавите
             if (index == -1) {
                 result.append(c); // Не меняем символы вне алфавита
@@ -29,8 +29,10 @@ public class Cipher {
                 result.append(ALPHABET[newIndex]);
             }
         }
-        return result.toString();
+        return files.writeFile("textOutEncrypt", result.toString());
     }
+
+
     private int findCharIndex(char c) {
         for (int i = 0; i < ALPHABET.length; i++) {
             if (ALPHABET[i] == c) {

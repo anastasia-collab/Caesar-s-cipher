@@ -13,7 +13,8 @@ public class FilesManager {
     }
 
     // Запись строки в файл (если файла нет, он создаётся)
-    public void writeFile(String filePath, String content) throws IOException {
+    public String writeFile(String filePath, String content) throws IOException {
         Files.write(Paths.get(filePath), content.getBytes());
+        return filePath;
     }
 }
