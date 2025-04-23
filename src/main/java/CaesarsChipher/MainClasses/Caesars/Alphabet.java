@@ -34,11 +34,11 @@ public class Alphabet {
         return new Character[]{alphabet.get(index)};
     }
 
-    public int getCharIndex(Character character){
+    public int getCharIndex(Character character) {
         if (!charIndex.containsKey(character)) {
             throw new CaesarAlphaetException("Invalid character. Char: " + character);
         }
-        return alphabet.get(character);
+        return charIndex.get(character);  // Получаем индекс из Map, а не из List!
     }
 public int getSize(){return alphabet.size();}
 
