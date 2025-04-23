@@ -27,6 +27,8 @@ public class Cipher {
         }
         return result.toString();
     }
-
+    public Alphabet getAlphabet() {
+        return this.alphabet;
+    }
     private Character toLowerCase (Character character){return (character + "").toLowerCase().charAt(0);}
 }

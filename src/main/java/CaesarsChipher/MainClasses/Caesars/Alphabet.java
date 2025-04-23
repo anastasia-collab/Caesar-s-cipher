@@ -42,4 +42,5 @@ public class Alphabet {
     }
 public int getSize(){return alphabet.size();}
 
+
 }

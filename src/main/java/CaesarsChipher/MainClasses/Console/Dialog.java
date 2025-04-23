@@ -25,9 +25,11 @@ public class Dialog implements DialogInterface {
 
     @Override
     public void start() {
-        showMenu();
-        Operations operations = readOperatons();
-        processOperations(operations);
+        while (true) {
+            showMenu();
+            Operations operations = readOperatons();
+            processOperations(operations);
+        }
     }
 
     private void showMenu() {
@@ -50,15 +52,15 @@ public class Dialog implements DialogInterface {
                 String input = readString();
 
                 if(TRY_AGAIN_COMMAND.equalsIgnoreCase(input)){
-                    shouldTryAgain =true;
+                    shouldTryAgain = true;
                 }
             }
-        }while (shouldTryAgain);
+        } while (shouldTryAgain);
         return Operations.EXIT;
     }
 
-    private  void processOperations(Operations operations){
-        switch (operations){
+    private void processOperations(Operations operations) {
+        switch (operations) {
             case EXIT -> processExit();
             case ENCRYPTION -> prosessEncryptionOperation();
             case DECRYPTION -> processDecryptionOperation();
@@ -66,7 +68,7 @@ public class Dialog implements DialogInterface {
         }
     }
 
-    private void prosessEncryptionOperation(){
+    private void prosessEncryptionOperation() {
         System.out.println("Enter fileName which contains original text: ");
         String inputFileName = readString();
         System.out.println("Enter fileName which will be used for result saving: ");
@@ -77,12 +79,13 @@ public class Dialog implements DialogInterface {
         try {
             coder.encrypt(inputFileName, outputFileName, key);
             System.out.println("Done");
-        }catch (FileProcessingException e){
+        } catch (FileProcessingException e) {
             System.err.println("Error(");
             e.printStackTrace();
         }
     }
-    private void processDecryptionOperation(){
+
+    private void processDecryptionOperation() {
         System.out.println("Enter fileName which contains original text: ");
         String inputFileName = readString();
         System.out.println("Enter fileName which will be used for result saving: ");
@@ -93,26 +96,42 @@ public class Dialog implements DialogInterface {
         try {
             coder.decrypt(inputFileName, outputFileName, key);
             System.out.println("Done");
-        }catch (FileProcessingException e){
+        } catch (FileProcessingException e) {
             System.err.println("Error(");
             e.printStackTrace();
         }
     }
-    private void processBruteOperation(){
-        System.out.println("not Realized");
-    }
-    private void processExit(){
-        System.out.println("Bye");
+
+    private void processBruteOperation() {
+        System.out.println("Enter fileName which contains encrypted text: ");
+        String inputFileName = readString();
+        System.out.println("Enter fileName which will be used for result saving: ");
+        String outputFileName = readString();
+
+        try {
+            coder.bruteForce(inputFileName, outputFileName);
+            System.out.println("Brute force completed. Check the output file.");
+        } catch (FileProcessingException e) {
+            System.err.println("Error(");
+            e.printStackTrace();
+        }
     }
 
-    private int readInt(){
+    private void processExit() {
+        System.out.println("Bye");
+        System.exit(0);
+    }
+
+    private int readInt() {
         String input = in.nextLine();
         try {
             return Integer.parseInt(input);
-        }catch (NumberFormatException e){
-            throw new RuntimeException();
+        } catch (NumberFormatException e) {
+            throw new RuntimeException("Invalid number format");
         }
     }
-    private String readString(){return in.nextLine();}
 
+    private String readString() {
+        return in.nextLine();
+    }
 }
