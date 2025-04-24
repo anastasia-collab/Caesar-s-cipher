@@ -9,9 +9,9 @@ public class Dialog implements DialogInterface {
 
     private static final String WELCOME_MESSAGE =
             """
-                    *************
-                    ** Welcome **
-                    *************
+                    *************************************************************************
+                    *************** Добро пожаловать в шифр Цезаря, Искатель! ***************
+                    *************************************************************************
                     """;
     private static final String OPERATION_PATTERN = "%d - %s";
     private static final String TRY_AGAIN_COMMAND = "again";
@@ -32,9 +32,18 @@ public class Dialog implements DialogInterface {
         }
     }
 
+    private void processOperations(Operations operations) {
+        switch (operations) {
+            case EXIT -> processExit();
+            case ENCRYPTION -> prosessEncryptionOperation();
+            case DECRYPTION -> processDecryptionOperation();
+            case BRUTEFORCE -> processBruteOperation();
+        }
+    }
+
     private void showMenu() {
         System.out.println(WELCOME_MESSAGE);
-        System.out.println("Choose next option to continue:");
+        System.out.println("Выбери действие, чтобы продолжить:");
         for (Operations operation : Operations.values()) {
             String message = String.format(OPERATION_PATTERN, operation.getNumber(), operation.getDescription());
             System.out.println(message);
@@ -48,7 +57,7 @@ public class Dialog implements DialogInterface {
                 int option = readInt();
                 return Operations.getByNumber(option);
             } catch (IllegalArgumentException ex) {
-                System.out.println("Operation number is wrong");
+                System.out.println("Номер операции выбран неверно...");
                 String input = readString();
 
                 if(TRY_AGAIN_COMMAND.equalsIgnoreCase(input)){
@@ -59,66 +68,57 @@ public class Dialog implements DialogInterface {
         return Operations.EXIT;
     }
 
-    private void processOperations(Operations operations) {
-        switch (operations) {
-            case EXIT -> processExit();
-            case ENCRYPTION -> prosessEncryptionOperation();
-            case DECRYPTION -> processDecryptionOperation();
-            case BRUTEFORCE -> processBruteOperation();
-        }
-    }
-
     private void prosessEncryptionOperation() {
-        System.out.println("Enter fileName which contains original text: ");
+        System.out.println("Введите путь файла, хранящем текст, над которым Вы хотите провести выбранную операцию: ");
         String inputFileName = readString();
-        System.out.println("Enter fileName which will be used for result saving: ");
+        System.out.println("Введите путь файла, в который Вы хотите сохранить результат: ");
         String outputFileName = readString();
-        System.out.println("Enter key: ");
+        System.out.println("Введите ключ: ");
         int key = readInt();
 
         try {
             coder.encrypt(inputFileName, outputFileName, key);
-            System.out.println("Done");
+            System.out.println("Готово!");
         } catch (FileProcessingException e) {
-            System.err.println("Error(");
+            System.err.println("Ошибка...(");
             e.printStackTrace();
         }
     }
 
     private void processDecryptionOperation() {
-        System.out.println("Enter fileName which contains original text: ");
+        System.out.println("Введите путь файла, хранящем текст, над которым Вы хотите провести выбранную операцию: ");
         String inputFileName = readString();
-        System.out.println("Enter fileName which will be used for result saving: ");
+        System.out.println("Введите путь файла, в который Вы хотите сохранить результат: ");
         String outputFileName = readString();
-        System.out.println("Enter key: ");
+        System.out.println("Введите ключ: ");
         int key = readInt();
 
         try {
             coder.decrypt(inputFileName, outputFileName, key);
-            System.out.println("Done");
+            System.out.println("Готово!");
         } catch (FileProcessingException e) {
-            System.err.println("Error(");
+            System.err.println("Ошибка...(");
             e.printStackTrace();
         }
     }
 
     private void processBruteOperation() {
-        System.out.println("Enter fileName which contains encrypted text: ");
+        System.out.println("Введите путь файла, хранящем текст, над которым Вы хотите провести выбранную операцию: ");
         String inputFileName = readString();
-        System.out.println("Enter fileName which will be used for result saving: ");
+        System.out.println("Введите путь файла, в который Вы хотите сохранить результат: ");
         String outputFileName = readString();
 
         try {
             coder.bruteForce(inputFileName, outputFileName);
-            System.out.println("Brute force completed. Check the output file.");
+            System.out.println("Взлом завершён, посмотрите файл.");
         } catch (FileProcessingException e) {
-            System.err.println("Error(");
+            System.err.println("Ошибка...(");
             e.printStackTrace();
         }
     }
 
     private void processExit() {
-        System.out.println("Bye");
+        System.out.println("Хорошего дня!");
         System.exit(0);
     }
 
@@ -127,7 +127,7 @@ public class Dialog implements DialogInterface {
         try {
             return Integer.parseInt(input);
         } catch (NumberFormatException e) {
-            throw new RuntimeException("Invalid number format");
+            throw new RuntimeException("Неправильный формат чисел.");
         }
     }
 

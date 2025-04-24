@@ -1,10 +1,10 @@
 package CaesarsChipher.MainClasses.Console;
 
 public enum Operations {
-    EXIT(0, "exit", () -> System.out.println("Operation 1")),
-    ENCRYPTION(1, "encript file", () -> System.out.println("Operation 2")),
-    DECRYPTION(2, "decrypt file", () -> System.out.println("Operation 3")),
-    BRUTEFORCE(3, "try to crack file with bruteforce", () -> System.out.println("Operation 4"));
+    EXIT(0, "Выход...", () -> System.out.println("Operation 1")),
+    ENCRYPTION(1, "Шифровка файла", () -> System.out.println("Operation 2")),
+    DECRYPTION(2, "Дешифровка файла", () -> System.out.println("Operation 3")),
+    BRUTEFORCE(3, "Взлом файла", () -> System.out.println("Operation 4"));
 
     private final int number;
     private final String description;
@@ -30,6 +30,6 @@ public enum Operations {
                 return operation;
             }
         }
-        throw new IllegalArgumentException("Wrong number for operation");
+        throw new IllegalArgumentException("Неверный номер операции");
     }
 }

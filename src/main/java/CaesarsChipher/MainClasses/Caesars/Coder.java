@@ -12,7 +12,10 @@ public class Coder {
     private final Cipher cipher;
     private final FileNameValidator fileNameValidator;
     private final FilesManager filesManager;
-    private final List<String> commonWords = List.of(" и ", " в ", " не ", " на ", " что ", " это ", " с ", " по "); // Частые слова русского языка
+    private final List<String> commonWords = List.of(" и ", " в ", " не ", " на ", " что ",
+            " это ", " с ", " по ", " все ", " из ", " от ", " как ", " быть ", " который ", " для ",
+            " если ", " этот ", " он ", " а ", " они ", " мы ", " вы ", " человек ", " такой ", " же ",
+            " до ", " чтобы ", " кто ", " там ", " ли ", " где ", " к ", " у ", " о ", " никто ", " лишь "); // Частые слова русского языка
 
     public Coder() {
         this.cipher = new Cipher(new Alphabet());
